@@ -12,12 +12,43 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    let APPID = "wx40683bbaae3afdd4"
+    let SECRET = "e26439a5d0cc2ed60ee37a93daa85755"
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        
+        
+        ShareSDK.registerActivePlatforms([SSDKPlatformType.typeWechat], onImport: { (platformType) in
+            
+            switch platformType {
+            case .typeWechat:
+                ShareSDKConnector.connectWeChat(WXApi.self)
+                break
+            default:
+                break
+            }
+            
+        }) { (platformType, appInfo) in
+            
+            switch platformType {
+            case .typeWechat:
+                appInfo?.ssdkSetupWeChat(byAppId: self.APPID, appSecret: self.SECRET)
+                break
+            default:
+                break
+            }
+            
+        }
+        
         return true
     }
+    
+    /************************ shareSDK begin******************************/
+    
+    /************************ shareSDK end******************************/
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
