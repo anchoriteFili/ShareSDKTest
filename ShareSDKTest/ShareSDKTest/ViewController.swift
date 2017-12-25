@@ -8,13 +8,31 @@
 
 import UIKit
 
+
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
-
+    
+    
+    
+    @IBAction func login(_ sender: UIButton) {
+        
+        ShareSDK.getUserInfo(.typeWechat) { (state: SSDKResponseState, user: SSDKUser?, error: Error?) in
+            if let u = user {
+                // 如果有相关信息
+                print("user ************* \(u)")
+            }
+        }
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

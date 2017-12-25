@@ -666,6 +666,10 @@
 					"$(PROJECT_DIR)/ShareSDKTest/SDK/ShareSDK/Support/PlatformSDK/SinaWeiboSDK",
 					"$(PROJECT_DIR)/ShareSDKTest/SDK/ShareSDK/Support/PlatformSDK/WeChatSDK",
 				);
+				OTHER_LDFLAGS = (
+					"-Objc",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = zhaohongya.ShareSDKTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ShareSDKTest/ShareSDKTest-Bridging-Header.h";
@@ -697,6 +701,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ShareSDKTest/SDK/ShareSDK/Support/PlatformSDK/SinaWeiboSDK",
 					"$(PROJECT_DIR)/ShareSDKTest/SDK/ShareSDK/Support/PlatformSDK/WeChatSDK",
+				);
+				OTHER_LDFLAGS = (
+					"-Objc",
+					"-all_load",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = zhaohongya.ShareSDKTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";

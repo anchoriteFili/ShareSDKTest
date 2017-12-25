@@ -19,29 +19,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        
-        
-        ShareSDK.registerActivePlatforms([SSDKPlatformType.typeWechat], onImport: { (platformType) in
-            
-            switch platformType {
-            case .typeWechat:
-                ShareSDKConnector.connectWeChat(WXApi.self)
-                break
-            default:
-                break
-            }
-            
-        }) { (platformType, appInfo) in
-            
-            switch platformType {
-            case .typeWechat:
-                appInfo?.ssdkSetupWeChat(byAppId: self.APPID, appSecret: self.SECRET)
-                break
-            default:
-                break
-            }
-            
-        }
+        ShareSDK.registerActivePlatforms(
+            [
+                SSDKPlatformType.typeWechat.rawValue,
+                SSDKPlatformType.typeQQ.rawValue
+            ],
+            onImport: {(platform : SSDKPlatformType) -> Void in
+                switch platform
+                {
+                case SSDKPlatformType.typeWechat:
+                    ShareSDKConnector.connectWeChat(WXApi.classForCoder())
+                case SSDKPlatformType.typeQQ:
+                    ShareSDKConnector.connectQQ(QQApiInterface.classForCoder(), tencentOAuthClass: TencentOAuth.classForCoder())
+                default:
+                    break
+                }
+        },
+            onConfiguration: {(platform : SSDKPlatformType , appInfo : NSMutableDictionary?) -> Void in
+                switch platform
+                {
+                    
+                case SSDKPlatformType.typeWechat:
+                    //设置微信应用信息
+                    appInfo?.ssdkSetupWeChat(byAppId: "wx40683bbaae3afdd4",
+                                             appSecret: "e26439a5d0cc2ed60ee37a93daa85755")
+                case SSDKPlatformType.typeQQ:
+                    //设置QQ应用信息
+                    appInfo?.ssdkSetupQQ(byAppId: "100371282",
+                                         appKey: "aed9b0303e3ed1e27bae87c33761161d",
+                                         authType: SSDKAuthTypeWeb)
+                default:
+                    break
+                }
+        })
         
         return true
     }
