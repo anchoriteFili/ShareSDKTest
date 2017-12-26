@@ -18,15 +18,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
+        setUpShareSDK()
+        return true
+    }
+    
+    /************************ shareSDK begin******************************/
+    func setUpShareSDK() {
         ShareSDK.registerActivePlatforms(
             [
                 SSDKPlatformType.typeWechat.rawValue,
                 SSDKPlatformType.typeQQ.rawValue
             ],
             onImport: {(platform : SSDKPlatformType) -> Void in
-                switch platform
-                {
+                switch platform {
                 case SSDKPlatformType.typeWechat:
                     ShareSDKConnector.connectWeChat(WXApi.classForCoder())
                 case SSDKPlatformType.typeQQ:
@@ -36,9 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
         },
             onConfiguration: {(platform : SSDKPlatformType , appInfo : NSMutableDictionary?) -> Void in
-                switch platform
-                {
-                    
+                switch platform {
                 case SSDKPlatformType.typeWechat:
                     //设置微信应用信息
                     appInfo?.ssdkSetupWeChat(byAppId: "wx40683bbaae3afdd4",
@@ -52,12 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     break
                 }
         })
-        
-        return true
     }
-    
-    /************************ shareSDK begin******************************/
-    
     /************************ shareSDK end******************************/
 
     func applicationWillResignActive(_ application: UIApplication) {

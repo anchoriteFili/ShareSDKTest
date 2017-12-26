@@ -24,13 +24,18 @@ class ViewController: UIViewController {
     
     @IBAction func login(_ sender: UIButton) {
         
-        ShareSDK.getUserInfo(.typeWechat) { (state: SSDKResponseState, user: SSDKUser?, error: Error?) in
-            if let u = user {
-                // 如果有相关信息
-                print("user ************* \(u)")
-            }
-        }
         
+        if WXApi.isWXAppInstalled() {
+            print("微信已经安装")
+            ShareSDK.getUserInfo(.typeWechat) { (state: SSDKResponseState, user: SSDKUser?, error: Error?) in
+                if let u = user {
+                    // 如果有相关信息
+                    print("user ************* \(u)")
+                }
+            }
+        } else {
+            print("微信没有安装")
+        }
     }
     
     override func didReceiveMemoryWarning() {
